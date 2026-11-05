@@ -74,7 +74,7 @@
         : "Start/Sit",
       question: "",
       league_format: league,
-      league_size: mode === "roster" ? Number(field("leaguesize")) : null
+      league_size: mode === "roster" ? Number(field("leagueSize")) : null
     };
 
     if (mode === "question") {
