@@ -132,7 +132,7 @@ function displaySubmission(q) {
 
 function refreshFeatured() {
   try {
-    const saved = sessionStorage.getItem('featuredSubmission');
+    localStorage.getItem('featuredSubmission')
     if (saved) displaySubmission(JSON.parse(saved));
   } catch (e) {
     console.error('Unable to display submission:', e);
