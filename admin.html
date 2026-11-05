@@ -163,6 +163,18 @@ if (roster && typeof roster === "object") {
 
   card.append(rosterBox);
 }
+  const featureButton = document.createElement('button');
+featureButton.textContent = '⭐ FEATURE ON LIVE';
+featureButton.style.marginTop = '15px';
+featureButton.style.background = '#ffcc00';
+featureButton.style.color = '#111827';
+
+featureButton.onclick = function () {
+  sessionStorage.setItem('featuredSubmission', JSON.stringify(q));
+  alert('Featured! Next we will connect the LIVE display.');
+};
+
+card.append(featureButton);
   container.append(card);
  }
  status('Questions loaded successfully.');
