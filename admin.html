@@ -170,7 +170,8 @@ featureButton.style.background = '#ffcc00';
 featureButton.style.color = '#111827';
 
 featureButton.onclick = function () {
-  sessionStorage.setItem('featuredSubmission', JSON.stringify(q));
+localStorage.setItem('featuredSubmission', JSON.stringify(q));
+window.open('live.html', 'brodstarLive');
   alert('Featured! Next we will connect the LIVE display.');
 };
 
