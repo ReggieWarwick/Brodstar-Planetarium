@@ -104,7 +104,15 @@ function displaySubmission(q) {
 
   const rosterBox = document.getElementById('roster');
   rosterBox.replaceChildren();
-
+if (q.league_size) {
+  const leagueSizeLabel = document.createElement('div');
+  leagueSizeLabel.textContent = `${q.league_size}-TEAM LEAGUE`;
+  leagueSizeLabel.style.color = '#ffcc00';
+  leagueSizeLabel.style.fontWeight = 'bold';
+  leagueSizeLabel.style.fontSize = '24px';
+  leagueSizeLabel.style.marginBottom = '20px';
+  rosterBox.append(leagueSizeLabel);
+}
   let roster = q.roster;
   if (typeof roster === 'string') {
     try { roster = JSON.parse(roster); }
