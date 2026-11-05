@@ -13,8 +13,14 @@
   let mode = "question";
 
   function field(id) {
-    return document.getElementById(id).value.trim();
+  const element = document.getElementById(id);
+
+  if (!element) {
+    throw new Error("Missing form field: " + id);
   }
+
+  return element.value.trim();
+}
 
   function showMessage(text, isError) {
     const message = document.getElementById("message");
