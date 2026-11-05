@@ -12,9 +12,18 @@
 
   let mode = "question";
 
+  function field(id) {
+    return document.getElementById(id).value.trim();
+  }
+
+  function showMessage(text, isError) {
+    const message = document.getElementById("message");
+    message.textContent = text;
+    message.style.color = isError ? "#ff6677" : "#ffd447";
+  }
+
   function showMode(nextMode) {
     mode = nextMode;
-
     const isRoster = mode === "roster";
 
     qtab.classList.toggle("active", !isRoster);
@@ -31,7 +40,7 @@
       ? "Submit My Roster"
       : "Send to LIVE Queue";
 
-    window.brodstarShowMessage("", false);
+    showMessage("", false);
   }
 
   qtab.addEventListener("click", function () {
@@ -42,18 +51,11 @@
     showMode("roster");
   });
 
-  function field(id) {
-    return document.getElementById(id).value.trim();
-  }
-
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     if (!db) {
-      window.brodstarShowMessage(
-        "Database connection unavailable. Try again later.",
-        true
-      );
+      showMessage("Database connection unavailable.", true);
       return;
     }
 
@@ -61,30 +63,28 @@
     const league = field("league");
 
     if (!username) {
-      window.brodstarShowMessage(
-        "Please enter your TikTok username.",
-        true
-      );
+      showMessage("Enter your TikTok username.", true);
       return;
     }
 
-    let payload;
+    const payload = {
+      username: username,
+      question_type: mode === "roster"
+        ? "Rate My Team"
+        : "Start/Sit",
+      question: "",
+      league_format: league
+    };
 
     if (mode === "question") {
       const question = field("question");
 
       if (!question) {
-        window.brodstarShowMessage(
-          "Please enter a question.",
-          true
-        );
+        showMessage("Enter your question.", true);
         return;
       }
 
-      payload = {
-        username: username,
-        question: "[" + league + "] " + question
-      };
+      payload.question = question;
     } else {
       const roster = {
         QB: field("qb"),
@@ -95,59 +95,39 @@
         BENCH: field("bench")
       };
 
-      const hasPlayers = Object.values(roster).some(Boolean);
-
-      if (!hasPlayers) {
-        window.brodstarShowMessage(
-          "Please enter at least one player.",
-          true
-        );
+      if (!Object.values(roster).some(Boolean)) {
+        showMessage("Enter at least one player.", true);
         return;
       }
 
-      const rosterText = Object.entries(roster)
-        .filter(function (entry) {
-          return entry[1];
-        })
-        .map(function (entry) {
-          return entry[0] + ":\n" + entry[1];
-        })
-        .join("\n\n");
-
-      payload = {
-        username: username,
-        question:
-          "[ROSTER REVIEW - " + league + "]\n\n" +
-          rosterText +
-          "\n\nREVIEW REQUEST:\n" +
-          (field("rosterQuestion") || "General roster review")
-      };
+      payload.roster = roster;
+      payload.question =
+        field("rosterQuestion") || "General roster review";
     }
 
     submitButton.disabled = true;
-    window.brodstarShowMessage("Submitting...", false);
+    showMessage("Submitting...", false);
 
     try {
-      const result = await db
+      const { error } = await db
         .from("questions")
         .insert(payload);
 
-      if (result.error) {
-        throw result.error;
-      }
+      if (error) throw error;
 
       form.reset();
       showMode(mode);
 
-      window.brodstarShowMessage(
+      showMessage(
         "Submitted! Watch the LIVE for your review.",
         false
       );
     } catch (error) {
-      console.error("Submission error:", error);
+      console.error("Supabase submission error:", error);
 
-      window.brodstarShowMessage(
-        "Submission failed. Please try again.",
+      showMessage(
+        "Submission failed: " +
+        (error.message || "Unknown error"),
         true
       );
     } finally {
