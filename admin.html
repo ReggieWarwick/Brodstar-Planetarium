@@ -127,6 +127,13 @@ async function loadQuestions(){
   body.textContent=q.question||q.question_text||q.content||'';
   card.append(heading, body);
   const roster = q.roster;
+  if (q.league_size) {
+  const leagueSizeLabel = document.createElement('p');
+  leagueSizeLabel.textContent = `🏈 ${q.league_size}-Team League`;
+  leagueSizeLabel.style.color = '#ffcc00';
+  leagueSizeLabel.style.fontWeight = 'bold';
+  card.append(leagueSizeLabel);
+}
 
 if (roster && typeof roster === "object") {
   const rosterBox = document.createElement("div");
