@@ -73,7 +73,8 @@
         ? "Rate My Team"
         : "Start/Sit",
       question: "",
-      league_format: league
+      league_format: league,
+      league_size: mode === "roster" ? Number(field("leaguesize")) : null
     };
 
     if (mode === "question") {
