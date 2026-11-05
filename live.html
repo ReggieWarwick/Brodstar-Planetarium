@@ -5,150 +5,84 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Brodstar Planetarium | LIVE Display</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: #080e1c;
-  color: white;
-  font-family: Arial, sans-serif;
-}
-header {
-  background: #151f34;
-  border-bottom: 5px solid #ffcc00;
-  padding: 24px;
-  text-align: center;
-}
-header h1 {
-  margin: 0;
-  font-size: clamp(28px, 5vw, 54px);
-}
-header p { color: #ffcc00; font-weight: bold; }
-main {
-  max-width: 1100px;
-  margin: 35px auto;
-  padding: 20px;
-}
-.card {
-  background: #172238;
-  border: 2px solid #384861;
-  border-radius: 22px;
-  padding: 30px;
-}
-.label {
-  color: #ffcc00;
-  font-size: 20px;
-  font-weight: bold;
-}
-#username {
-  font-size: clamp(26px, 4vw, 42px);
-  margin: 15px 0;
-}
-#question {
-  font-size: clamp(24px, 3.5vw, 40px);
-  line-height: 1.4;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-#roster {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
-  margin-top: 25px;
-}
-.position {
-  background: #0d1527;
-  padding: 20px;
-  border-radius: 14px;
-  border-left: 5px solid #ffcc00;
-}
-.position strong {
-  color: #ffcc00;
-  font-size: 22px;
-}
-.position p {
-  font-size: 24px;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-footer {
-  text-align: center;
-  color: #ffcc00;
-  padding: 30px;
-}
+*{box-sizing:border-box}
+:root{--yellow:#ffdc57;--red:#fa435b;--white:#fff;--muted:#aab7d1}
+html,body{margin:0;min-height:100%;background:#080e1c;color:var(--white);font-family:Arial,Helvetica,sans-serif}
+body{overflow-x:hidden}
+header{padding:12px 16px 10px;text-align:center;background:#151f34;border-bottom:3px solid var(--yellow)}
+header h1{margin:0;font-size:clamp(16px,3vw,32px);letter-spacing:1px;font-weight:900}
+header p{margin:4px 0 0;color:var(--yellow);font-weight:800;font-size:clamp(10px,1.5vw,15px);letter-spacing:1px}
+.banner{background:var(--red);padding:12px 8px;text-align:center;font-size:clamp(18px,3vw,32px);font-weight:900;line-height:1.15;border-bottom:3px solid var(--yellow)}
+.stage{display:grid;grid-template-columns:minmax(0,36%) minmax(0,64%);gap:10px;padding:12px;min-height:310px;align-items:start}
+.comment-space{min-height:290px;display:flex;align-items:flex-start;justify-content:center;padding-top:18px}
+.comment-space span{font-size:11px;color:#536078;letter-spacing:1px;text-align:center;opacity:.45}
+.card{min-width:0;background:#172238;border:1px solid #40516d;border-radius:15px;padding:15px;box-shadow:0 8px 28px #0004}
+.label{color:var(--yellow);font-weight:900;font-size:clamp(11px,1.5vw,17px);letter-spacing:.6px}
+#username{font-size:clamp(20px,3vw,35px);margin:6px 0 8px;overflow-wrap:anywhere;line-height:1.1}
+#question{font-size:clamp(16px,2.15vw,25px);line-height:1.25;white-space:pre-wrap;overflow-wrap:anywhere;font-weight:700;margin-bottom:10px}
+#leagueSize{display:none;color:var(--yellow);font-weight:800;font-size:clamp(11px,1.5vw,16px);margin:8px 0}
+#roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.position{background:#0d1527;border-left:4px solid var(--yellow);border-radius:8px;padding:9px 10px;min-width:0}
+.position strong{display:block;color:var(--yellow);font-size:clamp(12px,1.5vw,17px);margin-bottom:5px}
+.position p{margin:0;font-size:clamp(14px,1.8vw,21px);line-height:1.2;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere}
+footer{text-align:center;color:var(--yellow);font-weight:800;font-size:11px;letter-spacing:.7px;padding:8px 12px 12px}
+@media(max-width:600px){header{padding:8px 8px 7px}.banner{padding:9px 5px}.stage{grid-template-columns:minmax(0,33%) minmax(0,67%);gap:5px;padding:6px;min-height:260px}.comment-space{min-height:260px}.comment-space span{display:none}.card{padding:9px;border-radius:10px}#username{font-size:clamp(17px,4.2vw,25px)}#question{font-size:clamp(14px,3.2vw,19px)}#roster{gap:5px}.position{padding:6px;border-left-width:3px}.position strong{font-size:11px}.position p{font-size:clamp(12px,2.8vw,17px)}footer{font-size:9px}}
 </style>
 </head>
 <body>
-<header>
-  <h1>BRODSTAR PLANETARIUM</h1>
-  <p>FANTASY FOOTBALL • LIVE REVIEW</p>
-</header>
-
-<main>
-  <div class="card">
+<header><h1>BRODSTAR PLANETARIUM</h1><p>FANTASY FOOTBALL • LIVE REVIEW</p></header>
+<div class="banner">Skip the line with a 100 coin gift!</div>
+<main class="stage">
+  <div class="comment-space" aria-hidden="true"><span>TIKTOK COMMENTS AREA</span></div>
+  <section class="card" aria-label="Featured live submission">
     <div class="label">NOW FEATURING</div>
     <h2 id="username">Waiting for a viewer...</h2>
     <div id="question">Select a submission from your host dashboard.</div>
+    <div id="leagueSize"></div>
     <div id="roster"></div>
-  </div>
+  </section>
 </main>
-
-<footer>THE PLANETARIUM • LIVE Q&A</footer>
-
+<footer>THE PLANETARIUM • LIVE Q&amp;A</footer>
 <script>
 function displaySubmission(q) {
-  document.getElementById('username').textContent =
-    '@' + (q.username || q.viewer_name || 'Viewer');
-
-  document.getElementById('question').textContent =
-    q.question || q.question_text || q.content || '';
-
+  if (!q || typeof q !== 'object') return;
+  const name = String(q.username || q.viewer_name || 'Viewer').replace(/^@+/, '');
+  document.getElementById('username').textContent = '@' + name;
+  document.getElementById('question').textContent = q.question || q.question_text || q.content || '';
+  const leagueSizeLabel = document.getElementById('leagueSize');
+  leagueSizeLabel.textContent = q.league_size ? `${q.league_size}-TEAM LEAGUE` : '';
+  leagueSizeLabel.style.display = q.league_size ? 'block' : 'none';
   const rosterBox = document.getElementById('roster');
   rosterBox.replaceChildren();
-if (q.league_size) {
-  const leagueSizeLabel = document.createElement('div');
-  leagueSizeLabel.textContent = `${q.league_size}-TEAM LEAGUE`;
-  leagueSizeLabel.style.color = '#ffcc00';
-  leagueSizeLabel.style.fontWeight = 'bold';
-  leagueSizeLabel.style.fontSize = '24px';
-  leagueSizeLabel.style.marginBottom = '20px';
-  rosterBox.append(leagueSizeLabel);
-}
   let roster = q.roster;
   if (typeof roster === 'string') {
     try { roster = JSON.parse(roster); }
     catch (e) { roster = null; }
   }
-
-  if (roster && typeof roster === 'object') {
-    ['QB', 'RB', 'WR', 'TE', 'FLEX', 'BENCH'].forEach(pos => {
+  if (roster && typeof roster === 'object' && !Array.isArray(roster)) {
+    ['QB','RB','WR','TE','FLEX','BENCH'].forEach(pos => {
       if (!roster[pos]) return;
-
       const card = document.createElement('div');
       card.className = 'position';
-
       const label = document.createElement('strong');
       label.textContent = pos;
-
       const names = document.createElement('p');
-      names.textContent = roster[pos];
-
-      card.append(label, names);
+      names.textContent = String(roster[pos]);
+      card.append(label,names);
       rosterBox.append(card);
     });
   }
 }
-
 function refreshFeatured() {
   try {
     const saved = localStorage.getItem('featuredSubmission');
     if (saved) displaySubmission(JSON.parse(saved));
   } catch (e) {
-    console.error('Unable to display submission:', e);
+    console.error('Unable to display submission:',e);
   }
 }
-
 refreshFeatured();
-window.addEventListener('storage', refreshFeatured);
+window.addEventListener('storage',refreshFeatured);
 </script>
 </body>
 </html>
