@@ -50,8 +50,8 @@ function displaySubmission(q) {
   document.getElementById('username').textContent = '@' + name;
   document.getElementById('question').textContent = q.question || q.question_text || q.content || '';
   const leagueSizeLabel = document.getElementById('leagueSize');
-  leagueSizeLabel.textContent = q.league_size ? `${q.league_size}-TEAM LEAGUE` : '';
-  leagueSizeLabel.style.display = q.league_size ? 'block' : 'none';
+  leagueSizeLabel.textContent = [q.league_size ? `${q.league_size}-TEAM LEAGUE` : '', q.league_format].filter(Boolean).join(' • ');
+  leagueSizeLabel.style.display = (q.league_size || q.league_format) ? 'block' : 'none';
   const rosterBox = document.getElementById('roster');
   rosterBox.replaceChildren();
   let roster = q.roster;
