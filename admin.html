@@ -125,7 +125,44 @@ async function loadQuestions(){
   heading.textContent=q.username||q.viewer_name||q.name||'Viewer';
   const body=document.createElement('p');
   body.textContent=q.question||q.question_text||q.content||'';
-  card.append(heading,body);
+  card.append(heading, body);
+  const roster = q.roster;
+
+if (roster && typeof roster === "object") {
+  const rosterBox = document.createElement("div");
+
+  rosterBox.style.display = "grid";
+  rosterBox.style.gridTemplateColumns =
+    "repeat(auto-fit, minmax(180px, 1fr))";
+  rosterBox.style.gap = "12px";
+  rosterBox.style.marginTop = "16px";
+
+  ["QB", "RB", "WR", "TE", "FLEX", "BENCH"].forEach(pos => {
+    const players = roster[pos];
+
+    if (!players) return;
+
+    const positionCard = document.createElement("div");
+
+    positionCard.style.background = "#202c43";
+    positionCard.style.padding = "14px";
+    positionCard.style.borderRadius = "10px";
+    positionCard.style.whiteSpace = "pre-line";
+
+    const label = document.createElement("strong");
+    label.textContent = pos;
+    label.style.color = "#ffd447";
+
+    const names = document.createElement("p");
+    names.textContent = players;
+    names.style.marginBottom = "0";
+
+    positionCard.append(label, names);
+    rosterBox.append(positionCard);
+  });
+
+  card.append(rosterBox);
+}
   container.append(card);
  }
  status('Questions loaded successfully.');
