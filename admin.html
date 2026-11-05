@@ -127,10 +127,8 @@ async function loadQuestions(){
   body.textContent=q.question||q.question_text||q.content||'';
   card.append(heading, body);
   const roster = q.roster;
-  if (q.league_size) {
-  const leagueSizeLabel = document.createElement('p');
-  leagueSizeLabel.textContent = `🏈 ${q.league_size}-Team League${q.league_format ? ' • ' + q.league_format : ''}`;
-  leagueSizeLabel.style.color = '#ffcc00';
+if (q.league_size || q.league_format) {  const leagueSizeLabel = document.createElement('p');
+leagueSizeLabel.textContent = `🏈 ${q.league_size ? q.league_size + '-Team League' : ''}${q.league_format ? ' • ' + q.league_format : ''}`;  leagueSizeLabel.style.color = '#ffcc00';
   leagueSizeLabel.style.fontWeight = 'bold';
   card.append(leagueSizeLabel);
 }
