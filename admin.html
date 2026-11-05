@@ -129,7 +129,7 @@ async function loadQuestions(){
   const roster = q.roster;
   if (q.league_size) {
   const leagueSizeLabel = document.createElement('p');
-  leagueSizeLabel.textContent = `🏈 ${q.league_size}-Team League`;
+  leagueSizeLabel.textContent = `🏈 ${q.league_size}-Team League${q.league_format ? ' • ' + q.league_format : ''}`;
   leagueSizeLabel.style.color = '#ffcc00';
   leagueSizeLabel.style.fontWeight = 'bold';
   card.append(leagueSizeLabel);
