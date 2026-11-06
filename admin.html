@@ -196,6 +196,57 @@ window.open('live.html', 'brodstarLive');
 };
 
 card.append(featureButton);
+  const statusRow = document.createElement('div');
+statusRow.style.display = 'flex';
+statusRow.style.flexWrap = 'wrap';
+statusRow.style.gap = '8px';
+statusRow.style.marginTop = '10px';
+
+const statusLabel = document.createElement('p');
+statusLabel.style.fontWeight = 'bold';
+statusLabel.style.color = '#ffcc00';
+statusLabel.textContent = 'Status: ' + ({
+  waiting: 'Pending',
+  on_stream: 'Accepted',
+  answered: 'Answered ✓',
+  skipped: 'Declined'
+}[q.status] || 'Pending');
+
+card.append(statusLabel);
+
+async function changeStatus(newStatus) {
+  const { error } = await db
+    .from('questions')
+    .update({ status: newStatus })
+    .eq('id', q.id);
+
+  if (error) {
+    alert('Unable to update status: ' + error.message);
+    return;
+  }
+
+  await loadQuestions();
+}
+
+[
+  ['✓ Accept', 'on_stream', '#198754'],
+  ['✕ Decline', 'skipped', '#dc3545'],
+  ['✓ Mark Answered', 'answered', '#555e70']
+].forEach(([text, value, color]) => {
+  const button = document.createElement('button');
+  button.textContent = text;
+  button.style.background = color;
+  button.style.color = 'white';
+  button.style.padding = '9px 12px';
+  button.style.border = 'none';
+  button.style.borderRadius = '8px';
+  button.style.cursor = 'pointer';
+
+  button.onclick = () => changeStatus(value);
+  statusRow.append(button);
+});
+
+card.append(statusRow);
   container.append(card);
  }
  status('Questions loaded successfully.');
