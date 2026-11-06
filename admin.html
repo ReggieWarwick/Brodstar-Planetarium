@@ -275,7 +275,43 @@ if (newStatus === 'on_stream' || newStatus === 'skipped') {
   statusRow.append(button);
 });
 
-card.append(statusRow);
+if (q.question_type === "Start/Sit") {
+  const startSitBox = document.createElement("div");
+  startSitBox.style.marginTop = "12px";
+  startSitBox.style.padding = "12px";
+  startSitBox.style.background = "#202c43";
+  startSitBox.style.borderRadius = "10px";
+
+  const heading = document.createElement("strong");
+  heading.textContent = "SELECT YOUR START(S)";
+  heading.style.color = "#ffdd44";
+  startSitBox.append(heading);
+
+  const playerText = (q.question || "")
+    .replace(/^START\s*\/\s*SIT:\s*/i, "");
+
+  const players = playerText
+    .split(/\s+vs\s+|,/i)
+    .map(name => name.trim())
+    .filter(Boolean);
+
+  players.forEach(player => {
+    const label = document.createElement("label");
+    label.style.display = "block";
+    label.style.marginTop = "8px";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.value = player;
+    checkbox.style.marginRight = "8px";
+
+    label.append(checkbox, document.createTextNode(player));
+    startSitBox.append(label);
+  });
+
+  card.append(startSitBox);
+}
+  card.append(statusRow);
   container.append(card);
  }
  status('Questions loaded successfully.');
