@@ -126,7 +126,7 @@ ttab.addEventListener("click", function () {
   .map(name => name.trim())
   .filter(Boolean);
 
-  if (players.length < 3) {
+  if (players.length < 2) {
     showMessage("Enter at least two players.", true);
     return;
   }
