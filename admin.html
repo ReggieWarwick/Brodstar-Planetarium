@@ -235,7 +235,8 @@ if (newStatus === 'on_stream' || newStatus === 'skipped') {
     const { data: nextQuestions, error: nextError } = await db
       .from('questions')
       .select('*')
-      .eq('status', 'waiting')
+.or('status.eq.waiting,status.is.null')
+
       .order('id', { ascending: true })
       .limit(1);
 
