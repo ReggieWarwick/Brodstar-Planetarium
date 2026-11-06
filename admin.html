@@ -190,8 +190,22 @@ featureButton.style.background = '#ffcc00';
 featureButton.style.color = '#111827';
 
 featureButton.onclick = function () {
-localStorage.setItem('featuredSubmission', JSON.stringify(q));
-window.open('live.html', 'brodstarLive');
+  const featured = { ...q };
+
+  if (q.question_type === "Start/Sit") {
+    const selected = Array.from(
+      startSitBox.querySelectorAll('input[type="checkbox"]:checked')
+    ).map(box => box.value);
+
+    featured.selected_starters = selected;
+  }
+
+  localStorage.setItem(
+    'featuredSubmission',
+    JSON.stringify(featured)
+  );
+
+  window.open('live.html', 'brodstarLive');
 };
 
 card.append(featureButton);
