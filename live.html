@@ -165,6 +165,37 @@ function displaySubmission(q) {
   document.getElementById('question').textContent = q.question || q.question_text || q.content || '';
   const leagueSizeLabel = document.getElementById('leagueSize');
 leagueSizeLabel.textContent = [q.league_size ? `${q.league_size}-TEAM LEAGUE` : '', q.league_format || ''].filter(Boolean).join(' • ');  leagueSizeLabel.style.display = (q.league_size || q.league_format) ? 'block' : 'none';
+  const oldResults = document.getElementById("startSitResults");
+if (oldResults) oldResults.remove();
+
+if (q.question_type === "Start/Sit" && Array.isArray(q.selected_starters)) {
+  const results = document.createElement("div");
+  results.id = "startSitResults";
+  results.style.marginTop = "10px";
+  results.style.fontSize = "20px";
+  results.style.fontWeight = "bold";
+
+  const players = (q.question || "")
+    .replace(/^START\s*\/\s*SIT:\s*/i, "")
+    .split(/\s+vs\s+/i)
+    .map(name => name.trim())
+    .filter(Boolean);
+
+  players.forEach(player => {
+    const line = document.createElement("div");
+    line.style.marginBottom = "6px";
+
+    const isStarter = q.selected_starters.includes(player);
+
+    line.style.color = isStarter ? "#4ade80" : "#ff6b6b";
+    line.textContent = (isStarter ? "✓ START: " : "✕ SIT: ") + player;
+
+    results.appendChild(line);
+  });
+
+  document.getElementById("question").after(results);
+}
+
   const rosterBox = document.getElementById('roster');
   rosterBox.replaceChildren();
   let roster = q.roster;
