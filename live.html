@@ -198,6 +198,10 @@ function refreshFeatured() {
   let lastBroadcastId = null;
 
 function showBroadcastAlert(data) {
+  const accepted = data.title === 'SUBMISSION ACCEPTED';
+
+document.getElementById('broadcastInner').style.background =
+  accepted ? '#176B39' : '#A71F2B';
   const alertBox = document.getElementById('broadcastAlert');
   const title = document.getElementById('broadcastTitle');
   const name = document.getElementById('broadcastName');
