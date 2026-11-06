@@ -230,6 +230,28 @@ if (newStatus === 'on_stream' || newStatus === 'skipped') {
     username: q.username || q.viewer_name || 'Viewer'
   }));
 }
+ if (newStatus === 'on_stream' || newStatus === 'skipped') {
+  setTimeout(async () => {
+    const { data: nextQuestions, error: nextError } = await db
+      .from('questions')
+      .select('*')
+      .eq('status', 'waiting')
+      .order('id', { ascending: true })
+      .limit(1);
+
+    if (nextError) {
+      console.error('Unable to load next question:', nextError);
+      return;
+    }
+
+    if (nextQuestions && nextQuestions.length > 0) {
+      localStorage.setItem(
+        'featuredSubmission',
+        JSON.stringify(nextQuestions[0])
+      );
+    }
+  }, 8500);
+}
   await loadQuestions();
 }
 
