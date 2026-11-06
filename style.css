@@ -225,3 +225,27 @@ button:disabled {
     height: 130px;
   }
 }
+/* Smaller Brodstar characters */
+header .brodstar-characters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 10px auto;
+}
+
+header .brodstar-characters img {
+  width: auto !important;
+  height: 100px !important;
+  max-width: 45% !important;
+  max-height: 100px !important;
+  object-fit: contain !important;
+  flex-shrink: 1;
+}
+
+@media (max-width: 600px) {
+  header .brodstar-characters img {
+    height: 75px !important;
+    max-height: 75px !important;
+  }
+}
