@@ -45,6 +45,9 @@ const ttab = document.getElementById("ttab");
 
   questionFields.classList.toggle("hidden", !isQuestion);
   rosterFields.classList.toggle("hidden", !isRoster);
+    document.getElementById("startSitFields").classList.toggle("hidden", !isStartSit);
+document.getElementById("tradeFields").classList.toggle("hidden", !isTrade);
+
 
   formtitle.textContent = isRoster
     ? "Submit your fantasy football roster"
@@ -95,9 +98,13 @@ ttab.addEventListener("click", function () {
 
     const payload = {
       username: username,
-      question_type: mode === "roster"
-        ? "Rate My Team"
-        : "Start/Sit",
+   question_type: mode === "roster"
+  ? "Rate My Team"
+  : mode === "startsit"
+  ? "Start/Sit"
+  : mode === "trade"
+  ? "Trade Advice"
+  : "General Question",
       question: "",
       league_format: league,
       league_size: mode === "roster" ? Number(field("leagueSize")) : null
@@ -112,7 +119,40 @@ ttab.addEventListener("click", function () {
       }
 
       payload.question = question;
-    } else {
+   } else if (mode === "startsit") {
+  const players = field("startSitPlayers")
+    .split("\n")
+    .map(name => name.trim())
+    .filter(Boolean);
+
+  if (players.length < 3) {
+    showMessage("Enter at least two players.", true);
+    return;
+  }
+
+  payload.question = "START / SIT: " + players.join(" vs ");
+
+} else if (mode === "trade") {
+  const giving = field("tradeGive")
+    .split("\n")
+    .map(name => name.trim())
+    .filter(Boolean);
+
+  const receiving = field("tradeReceive")
+    .split("\n")
+    .map(name => name.trim())
+    .filter(Boolean);
+
+  if (!giving.length || !receiving.length) {
+    showMessage("Enter players on both sides of the trade.", true);
+    return;
+  }
+
+  payload.question =
+    "TRADE AWAY: " + giving.join(", ") +
+    "\nRECEIVE: " + receiving.join(", ");
+
+} else if (mode === "roster") {
       const roster = {
         QB: field("qb"),
         RB: field("rb"),
