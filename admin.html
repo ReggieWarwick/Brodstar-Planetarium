@@ -237,7 +237,7 @@ if (newStatus === 'on_stream' || newStatus === 'skipped') {
       .select('*')
 .or('status.eq.waiting,status.is.null')
 
-      .order('id', { ascending: true })
+      .order('id', { ascending: false })
       .limit(1);
 
     if (nextError) {
