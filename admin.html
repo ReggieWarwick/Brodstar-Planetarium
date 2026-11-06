@@ -126,6 +126,21 @@ async function loadQuestions(){
   const body=document.createElement('p');
   body.textContent=q.question||q.question_text||q.content||'';
   card.append(heading, body);
+  const submittedTime = document.createElement('p');
+submittedTime.style.color = '#ffcc00';
+submittedTime.style.fontSize = '12px';
+submittedTime.style.margin = '5px 0';
+
+if (q.created_at) {
+  submittedTime.textContent = 'Submitted: ' +
+    new Date(q.created_at).toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit'
+    });
+  card.append(submittedTime);
+}
   const roster = q.roster;
 if (q.league_size || q.league_format) {  const leagueSizeLabel = document.createElement('p');
 leagueSizeLabel.textContent = `🏈 ${q.league_size ? q.league_size + '-Team League' : ''}${q.league_format ? ' • ' + q.league_format : ''}`;  leagueSizeLabel.style.color = '#ffcc00';
