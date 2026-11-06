@@ -189,3 +189,39 @@ button:disabled {
     font-size: 13px;
   }
 }
+/* Brodstar and Skeleton */
+.brodstar-characters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin: 15px auto 5px;
+}
+
+.brodstar-photo {
+  width: 150px;
+  height: 170px;
+  object-fit: contain;
+}
+
+.brodstar-skeleton {
+  width: 130px;
+  height: 170px;
+  object-fit: contain;
+}
+
+@media (max-width: 600px) {
+  .brodstar-characters {
+    gap: 12px;
+  }
+
+  .brodstar-photo {
+    width: 110px;
+    height: 130px;
+  }
+
+  .brodstar-skeleton {
+    width: 95px;
+    height: 130px;
+  }
+}
