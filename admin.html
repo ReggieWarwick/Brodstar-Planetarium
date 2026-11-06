@@ -237,14 +237,26 @@ async function changeStatus(newStatus) {
     alert('Unable to update status: ' + error.message);
     return;
   }
-if (newStatus === 'on_stream' || newStatus === 'skipped') {
+if (newStatus === 'on_stream' && q.question_type === 'Start/Sit') {
+  const selected = Array.from(
+    startSitBox.querySelectorAll('input[type="checkbox"]:checked')
+  ).map(box => box.value);
+
+  const featured = { ...q, selected_starters: selected };
+
+  localStorage.setItem(
+    'featuredSubmission',
+    JSON.stringify(featured)
+  );
+}
+ if (newStatus === 'on_stream' || newStatus === 'skipped') {
   localStorage.setItem('brodstarBroadcast', JSON.stringify({
     id: Date.now(),
     title: newStatus === 'on_stream' ? 'SUBMISSION ACCEPTED' : 'SUBMISSION DECLINED',
     username: q.username || q.viewer_name || 'Viewer'
   }));
 }
- if (newStatus === 'on_stream' || newStatus === 'skipped') {
+ if ((newStatus === 'on_stream' && q.question_type !== 'Start/Sit') || newStatus === 'skipped') {
   setTimeout(async () => {
     const { data: nextQuestions, error: nextError } = await db
       .from('questions')
