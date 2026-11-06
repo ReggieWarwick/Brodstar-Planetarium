@@ -236,9 +236,10 @@ if (newStatus === 'on_stream' || newStatus === 'skipped') {
       .from('questions')
       .select('*')
 .or('status.eq.waiting,status.is.null')
+.gt('id', q.id)
+.order('id', { ascending: true })
+.limit(1);
 
-      .order('id', { ascending: false })
-      .limit(1);
 
     if (nextError) {
       console.error('Unable to load next question:', nextError);
