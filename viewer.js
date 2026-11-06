@@ -25,10 +25,11 @@ const ttab = document.getElementById("ttab");
 }
 
   function showMessage(text, isError) {
-    const message = document.getElementById("message");
-    message.textContent = text;
-    message.style.color = isError ? "#ff6677" : "#ffd447";
-  }
+  const message = document.getElementById("message");
+  if (!message) return;
+  message.textContent = text;
+  message.style.color = isError ? "#ff6677" : "#ffdd47";
+}
 
   function showMode(nextMode) {
   mode = nextMode;
