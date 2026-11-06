@@ -5,6 +5,8 @@
   const form = document.getElementById("form");
   const qtab = document.getElementById("qtab");
   const rtab = document.getElementById("rtab");
+  const stab = document.getElementById("stab");
+const ttab = document.getElementById("ttab");
   const questionFields = document.getElementById("questionFields");
   const rosterFields = document.getElementById("rosterFields");
   const formtitle = document.getElementById("formtitle");
@@ -29,33 +31,51 @@
   }
 
   function showMode(nextMode) {
-    mode = nextMode;
-    const isRoster = mode === "roster";
+  mode = nextMode;
 
-    qtab.classList.toggle("active", !isRoster);
-    rtab.classList.toggle("active", isRoster);
+  const isRoster = mode === "roster";
+  const isQuestion = mode === "question";
+  const isStartSit = mode === "startsit";
+  const isTrade = mode === "trade";
 
-    questionFields.classList.toggle("hidden", isRoster);
-    rosterFields.classList.toggle("hidden", !isRoster);
+  qtab.classList.toggle("active", isQuestion);
+  rtab.classList.toggle("active", isRoster);
+  stab.classList.toggle("active", isStartSit);
+  ttab.classList.toggle("active", isTrade);
 
-    formtitle.textContent = isRoster
-      ? "Submit your fantasy football roster"
-      : "Ask a fantasy football question";
+  questionFields.classList.toggle("hidden", !isQuestion);
+  rosterFields.classList.toggle("hidden", !isRoster);
 
-    submitButton.textContent = isRoster
-      ? "Submit My Roster"
-      : "Send to LIVE Queue";
+  formtitle.textContent = isRoster
+    ? "Submit your fantasy football roster"
+    : isStartSit
+    ? "Who should I start or sit?"
+    : isTrade
+    ? "Get fantasy football trade advice"
+    : "Ask a general fantasy football question";
 
-    showMessage("", false);
-  }
+  submitButton.textContent = isRoster
+    ? "Submit My Roster"
+    : "Send to LIVE Queue";
 
-  qtab.addEventListener("click", function () {
-    showMode("question");
-  });
+  showMessage("", false);
+}
 
-  rtab.addEventListener("click", function () {
-    showMode("roster");
-  });
+qtab.addEventListener("click", function () {
+  showMode("question");
+});
+
+rtab.addEventListener("click", function () {
+  showMode("roster");
+});
+
+stab.addEventListener("click", function () {
+  showMode("startsit");
+});
+
+ttab.addEventListener("click", function () {
+  showMode("trade");
+});
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
