@@ -194,7 +194,7 @@ featureButton.onclick = function () {
 
   if (q.question_type === "Start/Sit") {
     const selected = Array.from(
-      startSitBox.querySelectorAll('input[type="checkbox"]:checked')
+      card.querySelectorAll('input[type="checkbox"]:checked')
     ).map(box => box.value);
 
     featured.selected_starters = selected;
