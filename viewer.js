@@ -122,9 +122,9 @@ ttab.addEventListener("click", function () {
       payload.question = question;
    } else if (mode === "startsit") {
   const players = field("startSitPlayers")
-    .split("\n")
-    .map(name => name.trim())
-    .filter(Boolean);
+  .split(/\r?\n/)
+  .map(name => name.trim())
+  .filter(Boolean);
 
   if (players.length < 3) {
     showMessage("Enter at least two players.", true);
