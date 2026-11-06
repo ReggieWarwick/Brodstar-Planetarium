@@ -223,7 +223,13 @@ async function changeStatus(newStatus) {
     alert('Unable to update status: ' + error.message);
     return;
   }
-
+if (newStatus === 'on_stream' || newStatus === 'skipped') {
+  localStorage.setItem('brodstarBroadcast', JSON.stringify({
+    id: Date.now(),
+    title: newStatus === 'on_stream' ? 'SUBMISSION ACCEPTED' : 'SUBMISSION DECLINED',
+    username: q.username || q.viewer_name || 'Viewer'
+  }));
+}
   await loadQuestions();
 }
 
