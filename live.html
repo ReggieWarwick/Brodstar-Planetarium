@@ -130,7 +130,10 @@ footer{text-align:center;color:var(--yellow);font-weight:800;font-size:11px;lett
   }
 }
 
-  
+  @keyframes skeletonBounce {
+  from { transform: translateY(0) rotate(-5deg); }
+  to { transform: translateY(-15px) rotate(5deg); }
+}
 </style>
 </head>
 <body>
@@ -138,6 +141,7 @@ footer{text-align:center;color:var(--yellow);font-weight:800;font-size:11px;lett
   <div id="broadcastInner">
     <div id="broadcastTitle">SUBMISSION ACCEPTED</div>
     <div id="broadcastName"></div>
+    <img src="just%20skell.png" id="broadcastSkeleton" alt="Brodstar Skeleton" style="display:block;width:130px;max-height:170px;object-fit:contain;margin:10px auto 0;animation:skeletonBounce 0.7s ease-in-out infinite alternate;">
   </div>
 </div>
 <header><h1>BRODSTAR PLANETARIUM</h1><p>FANTASY FOOTBALL • LIVE REVIEW</p></header>
