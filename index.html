@@ -86,45 +86,78 @@
 
 <script>
 (function () {
-  const positions = [
-    "QB", "RB1", "RB2", "WR1", "WR2",
-    "TE", "FLEX", "K", "DEF"
-  ];
+const positions = [
+  "QB", "RB1", "RB2", "WR1", "WR2",
+  "TE", "FLEX", "K", "DEF"
+];
 
-  function createFields(containerId, prefix) {
-    const container = document.getElementById(containerId);
+function createFields(containerId, prefix) {
+  const container = document.getElementById(containerId);
+  let nextPosition = 0;
 
-    positions.forEach(pos => {
-      const row = document.createElement("div");
-      row.className = "matchup-player-row";
+  function addPosition() {
+    let pos;
 
-      const label = document.createElement("label");
-      label.textContent = pos;
-      label.htmlFor = prefix + pos;
+    if (nextPosition < positions.length) {
+      pos = positions[nextPosition++];
+    } else {
+      const extra = ["RB", "WR", "TE", "FLEX"];
+      pos = extra[(nextPosition++ - positions.length) % extra.length]
+        + (nextPosition - positions.length + 1);
+    }
 
-      const input = document.createElement("input");
-      input.type = "text";
-      input.id = prefix + pos;
-      input.placeholder = "Player name";
-      input.maxLength = 80;
+    const row = document.createElement("div");
+    row.className = "matchup-player-row";
 
-      row.append(label, input);
-      container.appendChild(row);
-    });
+    const label = document.createElement("label");
+    label.textContent = pos;
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = prefix + pos;
+    input.dataset.position = pos;
+    input.placeholder = "Player name";
+    input.maxLength = 80;
+
+    label.htmlFor = input.id;
+    row.append(label, input);
+    container.appendChild(row);
   }
 
-  createFields("myPlayerFields", "my");
-  createFields("opponentPlayerFields", "opp");
+  addPosition();
 
-  function updateLineups() {
-    const build = prefix => positions.map(pos => {
-      const value = document.getElementById(prefix + pos).value.trim();
-      return pos + ": " + value;
-    }).join("\n");
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = "+ Add Next Position";
+  button.style.marginTop = "10px";
+  button.addEventListener("click", addPosition);
 
-    document.getElementById("myLineup").value = build("my");
-    document.getElementById("opponentLineup").value = build("opp");
+  container.after(button);
+}
+
+createFields("myPlayerFields", "my");
+createFields("opponentPlayerFields", "opp");
+
+function updateLineups() {
+  function build(containerId) {
+    return Array.from(
+      document.querySelectorAll(
+        "#" + containerId + " input[data-position]"
+      )
+    )
+      .map(input =>
+        input.dataset.position + ": " + input.value.trim()
+      )
+      .join("\n");
   }
+
+  document.getElementById("myLineup").value =
+    build("myPlayerFields");
+
+  document.getElementById("opponentLineup").value =
+    build("opponentPlayerFields");
+}
+
 
   document.getElementById("form").addEventListener(
     "submit", updateLineups, true
