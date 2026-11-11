@@ -56,7 +56,7 @@ document.getElementById("tradeFields").classList.toggle("hidden", !isTrade);
     ? "Who should I start or sit?"
     : isTrade
     ? "Get fantasy football trade advice"
-    : "Ask a general fantasy football question";
+    : "Rate My Fantasy Football Matchup";
 
   submitButton.textContent = isRoster
     ? "Submit My Roster"
