@@ -13,8 +13,11 @@ const ttab = document.getElementById("ttab");
   const submitButton = document.getElementById("submit");
 
   let mode = "question";
-  document.getElementById("addStartSitPlayer")
-  .addEventListener("click", function () {
+
+const addStartSitPlayerButton = document.getElementById("addStartSitPlayer");
+
+if (addStartSitPlayerButton) {
+  addStartSitPlayerButton.addEventListener("click", function () {
     const container = document.getElementById("startSitPlayerBoxes");
     const input = document.createElement("input");
 
@@ -24,6 +27,7 @@ const ttab = document.getElementById("ttab");
 
     container.appendChild(input);
   });
+}
 
   function field(id) {
   const element = document.getElementById(id);
