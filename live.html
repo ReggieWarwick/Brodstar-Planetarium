@@ -248,7 +248,7 @@ if (q.question_type === "Start/Sit" && Array.isArray(q.selected_starters)) {
       heading.style.marginBottom = "8px";
       card.appendChild(heading);
 
-     raw.trim().split(/(?=\b(?:QB|RB1|RB2|WR1|WR2|TE|FLEX|K|DEF):)/i).forEach(line => {
+     raw.trim().split(/(?=\b(?:QB|RB|WR|TE|FLEX|K|DEF)\d*:\s*)/i).forEach(line => {
         if (!line.trim()) return;
 
        const row = document.createElement("div");
