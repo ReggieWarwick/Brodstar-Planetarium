@@ -216,7 +216,59 @@ if (q.question_type === "Start/Sit" && Array.isArray(q.selected_starters)) {
       rosterBox.append(card);
     });
   }
-  
+  if ((q.question_type || "").toLowerCase().includes("trade")) {
+  const tradeText = q.question || "";
+
+  const away = tradeText.match(
+    /TRADE AWAY:\s*([\s\S]*?)(?=RECEIVE:|$)/i
+  );
+  const receive = tradeText.match(
+    /RECEIVE:\s*([\s\S]*)/i
+  );
+
+  if (away && receive) {
+    const tradeGrid = document.createElement("div");
+    tradeGrid.style.display = "grid";
+    tradeGrid.style.gridTemplateColumns = "repeat(2, minmax(0, 1fr))";
+    tradeGrid.style.gap = "8px";
+
+    function tradeCard(title, players) {
+      const card = document.createElement("div");
+      card.style.background = "#0d1527";
+      card.style.border = "1px solid #ffdc57";
+      card.style.borderRadius = "8px";
+      card.style.padding = "10px";
+      card.style.minWidth = "0";
+
+      const heading = document.createElement("div");
+      heading.textContent = title;
+      heading.style.color = "#ffdc57";
+      heading.style.fontWeight = "900";
+      heading.style.marginBottom = "8px";
+      card.appendChild(heading);
+
+      players.split(/,|\n/).forEach(player => {
+        if (!player.trim()) return;
+        const row = document.createElement("div");
+        row.textContent = player.trim();
+        row.style.marginBottom = "5px";
+        row.style.overflowWrap = "anywhere";
+        card.appendChild(row);
+      });
+
+      tradeGrid.appendChild(card);
+    }
+
+    tradeCard("TRADE AWAY", away[1]);
+    tradeCard("RECEIVE", receive[1]);
+
+    rosterBox.appendChild(tradeGrid);
+    rosterBox.style.display = "block";
+
+    document.getElementById("question").textContent = "TRADE ADVICE";
+  }
+}
+
   if (q.question_type === "Rate My Matchup") {
   const questionBox = document.getElementById("question");
   const text = q.question || "";
