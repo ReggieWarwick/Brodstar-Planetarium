@@ -281,6 +281,7 @@ header .brodstar-characters img {
 
 .reggie-photo {
   width: 225px;
-  height: auto;
+  height: 255px;
   object-fit: contain;
+  flex-shrink: 0;
 }
