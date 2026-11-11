@@ -217,6 +217,63 @@ if (q.question_type === "Start/Sit" && Array.isArray(q.selected_starters)) {
     });
   }
 }
+  if (q.question_type === "Rate My Matchup") {
+  const questionBox = document.getElementById("question");
+  const text = q.question || "";
+
+  const myMatch = text.match(/MY STARTING LINEUP:\s*([\s\S]*?)(?=OPPONENT'S STARTING LINEUP:|$)/i);
+  const oppMatch = text.match(/OPPONENT'S STARTING LINEUP:\s*([\s\S]*?)(?=MATCHUP NOTES:|$)/i);
+
+  if (myMatch && oppMatch) {
+    questionBox.textContent = "RATE MY MATCHUP";
+
+    const matchup = document.createElement("div");
+    matchup.style.display = "grid";
+    matchup.style.gridTemplateColumns = "repeat(2, minmax(0, 1fr))";
+    matchup.style.gap = "8px";
+    matchup.style.marginTop = "10px";
+
+    function addLineup(title, raw) {
+      const card = document.createElement("div");
+      card.style.background = "#0d1527";
+      card.style.border = "1px solid #ffdc57";
+      card.style.borderRadius = "8px";
+      card.style.padding = "8px";
+      card.style.minWidth = "0";
+
+      const heading = document.createElement("div");
+      heading.textContent = title;
+      heading.style.color = "#ffdc57";
+      heading.style.fontWeight = "900";
+      heading.style.marginBottom = "8px";
+      card.appendChild(heading);
+
+      raw.trim().split("\n").forEach(line => {
+        if (!line.trim()) return;
+
+        const row = document.createElement("div");
+        row.style.fontSize = "clamp(11px, 1.5vw, 17px)";
+        row.style.padding = "3px 0";
+        row.style.overflowWrap = "anywhere";
+        row.textContent = line.trim();
+        card.appendChild(row);
+      });
+
+      matchup.appendChild(card);
+    }
+
+    addLineup("MY LINEUP", myMatch[1]);
+    addLineup("OPPONENT", oppMatch[1]);
+
+    rosterBox.appendChild(matchup);
+    rosterBox.style.display = "block";
+  } else {
+    questionBox.textContent = text;
+  }
+} else {
+  rosterBox.style.display = "";
+}
+  }
 function refreshFeatured() {
   try {
     const saved = localStorage.getItem('featuredSubmission');
