@@ -130,7 +130,55 @@ function createFields(containerId, prefix) {
   button.type = "button";
   button.textContent = "+ Add Next Position";
   button.style.marginTop = "10px";
-  button.addEventListener("click", addPosition);
+button.addEventListener("click", function () {
+  const choice = document.createElement("select");
+
+  ["QB", "RB", "WR", "TE", "FLEX", "K", "DEF"].forEach(pos => {
+    const option = document.createElement("option");
+    option.value = pos;
+    option.textContent = pos;
+    choice.appendChild(option);
+  });
+
+  const confirm = document.createElement("button");
+  confirm.type = "button";
+  confirm.textContent = "Add Position";
+
+  confirm.addEventListener("click", function () {
+    const selected = choice.value;
+    const existing = container.querySelectorAll(
+      'input[data-position]'
+    );
+
+    const count = Array.from(existing).filter(input =>
+      input.dataset.position === selected ||
+      new RegExp("^" + selected + "[0-9]+$").test(input.dataset.position)
+    ).length;
+
+    const pos = selected + (count + 1);
+
+    const row = document.createElement("div");
+    row.className = "matchup-player-row";
+
+    const label = document.createElement("label");
+    label.textContent = pos;
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = prefix + pos;
+    input.dataset.position = pos;
+    input.placeholder = "Player name";
+
+    label.htmlFor = input.id;
+    row.append(label, input);
+    container.appendChild(row);
+
+    choice.remove();
+    confirm.remove();
+  });
+
+  button.after(choice, confirm);
+});
 
   container.after(button);
 }
