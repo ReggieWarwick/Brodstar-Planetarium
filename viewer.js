@@ -13,6 +13,37 @@ const ttab = document.getElementById("ttab");
   const submitButton = document.getElementById("submit");
 
   let mode = "question";
+  const rosterPositions = ["qb", "rb", "wr", "te", "flex", "bench"];
+
+document.querySelectorAll(".addRosterPlayer").forEach(button => {
+  button.addEventListener("click", function () {
+    const container = document.getElementById(button.dataset.container);
+    const input = document.createElement("input");
+
+    input.type = "text";
+    input.className = button.dataset.playerClass;
+    input.placeholder =
+      button.dataset.label + " " + (container.children.length + 1);
+
+    container.appendChild(input);
+  });
+});
+
+function updateRosterPlayerFields() {
+  rosterPositions.forEach(position => {
+    const inputs = document.querySelectorAll(
+      "#" + position + "Boxes input"
+    );
+
+    const players = Array.from(inputs)
+      .map(input => input.value.trim())
+      .filter(Boolean);
+
+    document.getElementById(position).value = players.join("\n");
+  });
+}
+
+form.addEventListener("submit", updateRosterPlayerFields, true);
 
 const addStartSitPlayerButton = document.getElementById("addStartSitPlayer");
 
