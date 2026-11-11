@@ -28,7 +28,23 @@ if (addStartSitPlayerButton) {
     container.appendChild(input);
   });
 }
+function setupTradeAddButton(buttonId, containerId, playerClass) {
+  const button = document.getElementById(buttonId);
+  const container = document.getElementById(containerId);
 
+  if (!button || !container) return;
+
+  button.addEventListener("click", function () {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = playerClass;
+    input.placeholder = "Player " + (container.children.length + 1);
+    container.appendChild(input);
+  });
+}
+
+setupTradeAddButton("addTradeGive", "tradeGiveBoxes", "tradeGivePlayer");
+setupTradeAddButton("addTradeReceive", "tradeReceiveBoxes", "tradeReceivePlayer");
   function field(id) {
   const element = document.getElementById(id);
 
@@ -157,15 +173,18 @@ ttab.addEventListener("click", function () {
   payload.question = "START / SIT: " + players.join(" vs ");
 
 } else if (mode === "trade") {
-  const giving = field("tradeGive")
-    .split("\n")
-    .map(name => name.trim())
-    .filter(Boolean);
+ const giving = Array.from(
+  document.querySelectorAll(".tradeGivePlayer")
+)
+  .map(input => input.value.trim())
+  .filter(Boolean);
 
-  const receiving = field("tradeReceive")
-    .split("\n")
-    .map(name => name.trim())
-    .filter(Boolean);
+const receiving = Array.from(
+  document.querySelectorAll(".tradeReceivePlayer")
+)
+  .map(input => input.value.trim())
+  .filter(Boolean);
+
 
   if (!giving.length || !receiving.length) {
     showMessage("Enter players on both sides of the trade.", true);
