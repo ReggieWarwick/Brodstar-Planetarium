@@ -105,21 +105,27 @@ ttab.addEventListener("click", function () {
   ? "Start/Sit"
   : mode === "trade"
   ? "Trade Advice"
-  : "General Question",
+  : "Rate My Matchup",
       question: "",
       league_format: league,
       league_size: mode === "roster" ? Number(field("leagueSize")) : null
     };
 
     if (mode === "question") {
-      const question = field("question");
+  const myLineup = field("myLineup");
+  const opponentLineup = field("opponentLineup");
+  const notes = field("question");
 
-      if (!question) {
-        showMessage("Enter your question.", true);
-        return;
-      }
+  if (!myLineup || !opponentLineup) {
+    showMessage("Enter both starting lineups.", true);
+    return;
+  }
 
-      payload.question = question;
+  payload.question =
+    "RATE MY MATCHUP\n\n" +
+    "MY STARTING LINEUP:\n" + myLineup +
+    "\n\nOPPONENT'S STARTING LINEUP:\n" + opponentLineup +
+    (notes ? "\n\nMATCHUP NOTES:\n" + notes : "");
    } else if (mode === "startsit") {
   const players = field("startSitPlayers")
   .split(/\r?\n/)
