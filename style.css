@@ -279,9 +279,11 @@ header .brodstar-characters img {
   min-width: 0;
 }
 
-.reggie-photo {
-  width: 225px;
-  height: 255px;
+.brodstar-characters img.reggie-photo {
+  width: 225px !important;
+  height: 255px !important;
+  max-width: none !important;
+  max-height: none !important;
   object-fit: contain;
   flex-shrink: 0;
 }
