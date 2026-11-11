@@ -148,19 +148,30 @@
 </div>
 
 <div id="tradeFields" class="hidden">
-  <label for="tradeGive">Players you are trading away</label>
-  <textarea
-    id="tradeGive"
-    rows="4"
-    placeholder="Enter one player per line"
-  ></textarea>
+  <label>Players You're Trading Away</label>
 
-  <label for="tradeReceive">Players you are receiving</label>
-  <textarea
-    id="tradeReceive"
-    rows="4"
-    placeholder="Enter one player per line"
-  ></textarea>
+  <div id="tradeGiveBoxes">
+    <input type="text" class="tradeGivePlayer"
+           placeholder="Player 1">
+  </div>
+
+  <button type="button" id="addTradeGive">
+    + Add Another Player
+  </button>
+
+  <label>Players You're Receiving</label>
+
+  <div id="tradeReceiveBoxes">
+    <input type="text" class="tradeReceivePlayer"
+           placeholder="Player 1">
+  </div>
+
+  <button type="button" id="addTradeReceive">
+    + Add Another Player
+  </button>
+
+  <textarea id="tradeGive" class="hidden"></textarea>
+  <textarea id="tradeReceive" class="hidden"></textarea>
 </div>
     <div id="rosterFields" class="hidden">
       <div>
