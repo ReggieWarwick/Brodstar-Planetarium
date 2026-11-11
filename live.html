@@ -251,17 +251,7 @@ if (q.question_type === "Start/Sit" && Array.isArray(q.selected_starters)) {
       raw.trim().split("\n").forEach(line => {
         if (!line.trim()) return;
 
-        const row = document.createElement("div");
-        row.style.fontSize = "clamp(11px, 1.5vw, 17px)";
-        row.style.padding = "3px 0";
-        row.style.overflowWrap = "anywhere";
-       const positions = ["QB", "RB1", "RB2", "WR1", "WR2", "TE", "FLEX", "K", "DEF"];
-const playerLines = raw.trim().split("\n").filter(x => x.trim());
-const index = playerLines.indexOf(line);
-const cleaned = line.trim();
-row.textContent = /^(QB|RB\d*|WR\d*|TE|FLEX\d*|K|DEF):/i.test(cleaned)
-  ? cleaned
-  : `${positions[index] || "FLEX"}: ${cleaned}`;
+        row.textContent = line.trim();
         card.appendChild(row);
       });
 
