@@ -56,35 +56,81 @@
     </div>
 
     <div id="questionFields">
-  <h3>MY STARTING LINEUP</h3>
-  <p>Enter one player for each position.</p>
-  <textarea id="myLineup" rows="11" placeholder="QB:
-RB1:
-RB2:
-WR1:
-WR2:
-TE:
-FLEX:
-K:
-DEF:"></textarea>
+  <h3>RATE MY MATCHUP</h3>
+  <p>Enter each team's starting players.</p>
 
-  <h3>OPPONENT'S STARTING LINEUP</h3>
-  <p>Enter your opponent's starters.</p>
-  <textarea id="opponentLineup" rows="11" placeholder="QB:
-RB1:
-RB2:
-WR1:
-WR2:
-TE:
-FLEX:
-K:
-DEF:"></textarea>
+  <div class="matchup-grid">
+    <div class="matchup-team">
+      <h3>MY STARTING LINEUP</h3>
+      <div id="myPlayerFields"></div>
+    </div>
 
-  <p>Have extra positions? Add them on additional lines, such as FLEX2, SUPERFLEX, WR3, or IDP.</p>
+    <div class="matchup-team">
+      <h3>OPPONENT'S LINEUP</h3>
+      <div id="opponentPlayerFields"></div>
+    </div>
+  </div>
+
+  <p>Extra positions? Enter them below.</p>
+  <textarea id="extraPositions"
+    rows="3"
+    placeholder="FLEX2, SUPERFLEX, WR3, etc."></textarea>
 
   <label for="question">Matchup notes (optional)</label>
-  <textarea id="question" maxlength="1500" placeholder="Any injuries, lineup decisions, or special league rules?"></textarea>
+  <textarea id="question" maxlength="1500"
+    placeholder="Injuries, lineup decisions, special rules..."></textarea>
+
+  <textarea id="myLineup" class="hidden"></textarea>
+  <textarea id="opponentLineup" class="hidden"></textarea>
 </div>
+
+<script>
+(function () {
+  const positions = [
+    "QB", "RB1", "RB2", "WR1", "WR2",
+    "TE", "FLEX", "K", "DEF"
+  ];
+
+  function createFields(containerId, prefix) {
+    const container = document.getElementById(containerId);
+
+    positions.forEach(pos => {
+      const row = document.createElement("div");
+      row.className = "matchup-player-row";
+
+      const label = document.createElement("label");
+      label.textContent = pos;
+      label.htmlFor = prefix + pos;
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.id = prefix + pos;
+      input.placeholder = "Player name";
+      input.maxLength = 80;
+
+      row.append(label, input);
+      container.appendChild(row);
+    });
+  }
+
+  createFields("myPlayerFields", "my");
+  createFields("opponentPlayerFields", "opp");
+
+  function updateLineups() {
+    const build = prefix => positions.map(pos => {
+      const value = document.getElementById(prefix + pos).value.trim();
+      return pos + ": " + value;
+    }).join("\n");
+
+    document.getElementById("myLineup").value = build("my");
+    document.getElementById("opponentLineup").value = build("opp");
+  }
+
+  document.getElementById("form").addEventListener(
+    "submit", updateLineups, true
+  );
+})();
+</script>
 
     <div id="startSitFields" class="hidden">
   <label for="startSitPlayers">Players you're deciding between</label>
