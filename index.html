@@ -56,10 +56,35 @@
     </div>
 
     <div id="questionFields">
-      <label for="question">Your question *</label>
-      <textarea id="question" maxlength="1500"
-        placeholder="Start/sit, trades, waiver wire..."></textarea>
-    </div>
+  <h3>MY STARTING LINEUP</h3>
+  <p>Enter one player for each position.</p>
+  <textarea id="myLineup" rows="11" placeholder="QB:
+RB1:
+RB2:
+WR1:
+WR2:
+TE:
+FLEX:
+K:
+DEF:"></textarea>
+
+  <h3>OPPONENT'S STARTING LINEUP</h3>
+  <p>Enter your opponent's starters.</p>
+  <textarea id="opponentLineup" rows="11" placeholder="QB:
+RB1:
+RB2:
+WR1:
+WR2:
+TE:
+FLEX:
+K:
+DEF:"></textarea>
+
+  <p>Have extra positions? Add them on additional lines, such as FLEX2, SUPERFLEX, WR3, or IDP.</p>
+
+  <label for="question">Matchup notes (optional)</label>
+  <textarea id="question" maxlength="1500" placeholder="Any injuries, lineup decisions, or special league rules?"></textarea>
+</div>
 
     <div id="startSitFields" class="hidden">
   <label for="startSitPlayers">Players you're deciding between</label>
