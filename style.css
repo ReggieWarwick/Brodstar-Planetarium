@@ -249,3 +249,32 @@ header .brodstar-characters img {
     max-height: 75px !important;
   }
 }
+/* Rate My Matchup - position entry fields */
+#myPlayerFields,
+#opponentPlayerFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
+  margin: 12px 0 20px;
+}
+
+#myPlayerFields > div,
+#opponentPlayerFields > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+#myPlayerFields label,
+#opponentPlayerFields label {
+  color: #ffdf47;
+  font-weight: 800;
+  min-width: 48px;
+}
+
+#myPlayerFields input,
+#opponentPlayerFields input {
+  width: 100%;
+  min-width: 0;
+}
