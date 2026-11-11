@@ -13,6 +13,17 @@ const ttab = document.getElementById("ttab");
   const submitButton = document.getElementById("submit");
 
   let mode = "question";
+  document.getElementById("addStartSitPlayer")
+  .addEventListener("click", function () {
+    const container = document.getElementById("startSitPlayerBoxes");
+    const input = document.createElement("input");
+
+    input.type = "text";
+    input.placeholder = "Player " + (container.children.length + 1);
+    input.className = "startSitPlayer";
+
+    container.appendChild(input);
+  });
 
   function field(id) {
   const element = document.getElementById(id);
@@ -127,7 +138,11 @@ ttab.addEventListener("click", function () {
     "\n\nOPPONENT'S STARTING LINEUP:\n" + opponentLineup +
     (notes ? "\n\nMATCHUP NOTES:\n" + notes : "");
    } else if (mode === "startsit") {
-  const players = field("startSitPlayers")
+  const players = Array.from(
+  document.querySelectorAll(".startSitPlayer")
+)
+  .map(input => input.value.trim())
+  .filter(Boolean);
   .split(/\r?\n/)
   .map(name => name.trim())
   .filter(Boolean);
