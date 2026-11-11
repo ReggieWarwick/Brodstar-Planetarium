@@ -185,32 +185,83 @@
     <option value="14">14-Team League</option>
   </select>
 </div>
-      <div class="grid">
-        <div>
-          <label for="qb">Quarterbacks</label>
-          <textarea id="qb" placeholder="One player per line"></textarea>
-        </div>
-        <div>
-          <label for="rb">Running Backs</label>
-          <textarea id="rb" placeholder="One player per line"></textarea>
-        </div>
-        <div>
-          <label for="wr">Wide Receivers</label>
-          <textarea id="wr" placeholder="One player per line"></textarea>
-        </div>
-        <div>
-          <label for="te">Tight Ends</label>
-          <textarea id="te" placeholder="One player per line"></textarea>
-        </div>
-        <div>
-          <label for="flex">FLEX / Starters</label>
-          <textarea id="flex" placeholder="One player per line"></textarea>
-        </div>
-        <div>
-          <label for="bench">Bench</label>
-          <textarea id="bench" placeholder="One player per line"></textarea>
-        </div>
-      </div>
+    <div class="grid">
+
+  <div>
+    <label>Quarterbacks</label>
+    <div id="qbBoxes">
+      <input type="text" class="rosterQB" placeholder="QB 1">
+    </div>
+    <button type="button" class="addRosterPlayer"
+      data-container="qbBoxes" data-player-class="rosterQB" data-label="QB">
+      + Add QB
+    </button>
+    <textarea id="qb" class="hidden"></textarea>
+  </div>
+
+  <div>
+    <label>Running Backs</label>
+    <div id="rbBoxes">
+      <input type="text" class="rosterRB" placeholder="RB 1">
+      <input type="text" class="rosterRB" placeholder="RB 2">
+    </div>
+    <button type="button" class="addRosterPlayer"
+      data-container="rbBoxes" data-player-class="rosterRB" data-label="RB">
+      + Add RB
+    </button>
+    <textarea id="rb" class="hidden"></textarea>
+  </div>
+
+  <div>
+    <label>Wide Receivers</label>
+    <div id="wrBoxes">
+      <input type="text" class="rosterWR" placeholder="WR 1">
+      <input type="text" class="rosterWR" placeholder="WR 2">
+    </div>
+    <button type="button" class="addRosterPlayer"
+      data-container="wrBoxes" data-player-class="rosterWR" data-label="WR">
+      + Add WR
+    </button>
+    <textarea id="wr" class="hidden"></textarea>
+  </div>
+
+  <div>
+    <label>Tight Ends</label>
+    <div id="teBoxes">
+      <input type="text" class="rosterTE" placeholder="TE 1">
+    </div>
+    <button type="button" class="addRosterPlayer"
+      data-container="teBoxes" data-player-class="rosterTE" data-label="TE">
+      + Add TE
+    </button>
+    <textarea id="te" class="hidden"></textarea>
+  </div>
+
+  <div>
+    <label>FLEX / Starters</label>
+    <div id="flexBoxes">
+      <input type="text" class="rosterFLEX" placeholder="FLEX 1">
+    </div>
+    <button type="button" class="addRosterPlayer"
+      data-container="flexBoxes" data-player-class="rosterFLEX" data-label="FLEX">
+      + Add FLEX
+    </button>
+    <textarea id="flex" class="hidden"></textarea>
+  </div>
+
+  <div>
+    <label>Bench</label>
+    <div id="benchBoxes">
+      <input type="text" class="rosterBENCH" placeholder="Bench 1">
+    </div>
+    <button type="button" class="addRosterPlayer"
+      data-container="benchBoxes" data-player-class="rosterBENCH" data-label="Bench">
+      + Add Bench
+    </button>
+    <textarea id="bench" class="hidden"></textarea>
+  </div>
+
+</div>
 
       <label for="rosterQuestion">What would you like reviewed?</label>
       <textarea id="rosterQuestion" maxlength="1500"
