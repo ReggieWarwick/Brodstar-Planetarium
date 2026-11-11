@@ -147,9 +147,7 @@ ttab.addEventListener("click", function () {
 )
   .map(input => input.value.trim())
   .filter(Boolean);
-  .split(/\r?\n/)
-  .map(name => name.trim())
-  .filter(Boolean);
+
 
   if (players.length < 2) {
     showMessage("Enter at least two players.", true);
