@@ -221,8 +221,8 @@ if (q.question_type === "Start/Sit" && Array.isArray(q.selected_starters)) {
   const questionBox = document.getElementById("question");
   const text = q.question || "";
 
-  const myMatch = text.match(/MY STARTING LINEUP:\s*([\s\S]*?)(?=OPPONENT'S STARTING LINEUP:|$)/i);
-  const oppMatch = text.match(/OPPONENT'S STARTING LINEUP:\s*([\s\S]*?)(?=MATCHUP NOTES:|$)/i);
+  const myMatch = text.match(/MY STARTING LINEUP:\s*([\s\S]*?)(?=OPPONENT'?S STARTING LINEUP:|$)/i);
+ const oppMatch = text.match(/OPPONENT'?S STARTING LINEUP:\s*([\s\S]*?)(?=MATCHUP NOTES:|$)/i);
 
   if (myMatch && oppMatch) {
     questionBox.textContent = "RATE MY MATCHUP";
@@ -248,9 +248,10 @@ if (q.question_type === "Start/Sit" && Array.isArray(q.selected_starters)) {
       heading.style.marginBottom = "8px";
       card.appendChild(heading);
 
-      raw.trim().split("\n").forEach(line => {
+     raw.trim().split(/(?=\b(?:QB|RB1|RB2|WR1|WR2|TE|FLEX|K|DEF):)/i).forEach(line => {
         if (!line.trim()) return;
 
+       const row = document.createElement("div");
         row.textContent = line.trim();
         card.appendChild(row);
       });
