@@ -124,7 +124,7 @@ function createFields(containerId, prefix) {
     container.appendChild(row);
   }
 
-  addPosition();
+  positions.forEach(() => addPosition());
 
   const button = document.createElement("button");
   button.type = "button";
