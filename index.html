@@ -132,13 +132,19 @@
 })();
 </script>
 
-    <div id="startSitFields" class="hidden">
-  <label for="startSitPlayers">Players you're deciding between</label>
-  <textarea
-    id="startSitPlayers"
-    rows="6"
-    placeholder="Enter one player per line. You can enter 2 or more players."
-  ></textarea>
+   <div id="startSitFields" class="hidden">
+  <label>Players you're deciding between</label>
+
+  <div id="startSitPlayerBoxes">
+    <input type="text" placeholder="Player 1" class="startSitPlayer">
+    <input type="text" placeholder="Player 2" class="startSitPlayer">
+  </div>
+
+  <button type="button" id="addStartSitPlayer">
+    + Add Another Player
+  </button>
+
+  <textarea id="startSitPlayers" class="hidden"></textarea>
 </div>
 
 <div id="tradeFields" class="hidden">
