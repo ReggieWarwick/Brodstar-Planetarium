@@ -135,7 +135,8 @@ Tyler Shough|QB|4
 Tre Tucker|WR|4
 Matthew Stafford|QB|3.75
 Kirk Cousins|QB|3.75
-Bryce Young|QB|3.75`;
+Bryce Young|QB|3.75
+Brandin Cooks|WR|2`;
 const players = raw.split('\n').map(line => {
   const [name, pos, value] = line.split('|');
   return { name, pos, value: Number(value), label: `${name} (${pos})` };
