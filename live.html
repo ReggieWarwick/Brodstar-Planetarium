@@ -176,7 +176,7 @@ if (q.question_type === "Start/Sit" && Array.isArray(q.selected_starters)) {
   results.style.fontWeight = "bold";
 
   const players = (q.question || "")
-    .replace(/^START\s*\/\s*SIT:\s*/i, "")
+ .replace(/^START\s*\/\s*SIT\s*(?:—|-)?\s*(?:PICK\s*\d+)?\s*:\s*/i, "")
     .split(/\s+vs\s+/i)
     .map(name => name.trim())
     .filter(Boolean);
