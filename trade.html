@@ -134,7 +134,7 @@ Tre Tucker|WR|4
 Matthew Stafford|QB|4
 Kirk Cousins|QB|3.75
 Bryce Young|QB|3.75`;
-const players=raw.split('\n').map(line=>{const [name,pos,value]=line.split('|');return{name,pos,value:Number(value),label:`${name} (${pos}) — ${value}`}});
+const players=raw.split('\n').map(line=>{const [name,pos,value]=line.split('|');return{name,pos,value:Number(value),label:`${name} (${pos})`
 const byLabel=new Map(players.map(p=>[p.label.toLowerCase(),p]));
 const byName=new Map(players.map(p=>[p.name.toLowerCase(),p]));
 const options=document.getElementById('playerOptions');
