@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brodstar Star Finder | Trade Value App</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#fff;background:#0b101b}*{box-sizing:border-box}body{margin:0;background:linear-gradient(150deg,#141c2c,#090c13);min-height:100vh}.wrap{max-width:950px;margin:auto;padding:18px}header{text-align:center;border:3px solid #ffd21a;border-radius:16px;background:#b80e21;padding:18px 10px;box-shadow:0 0 25px #d20c3155}header .star{font-size:36px;color:#ffdf3e}h1{font-size:clamp(25px,5vw,43px);margin:3px 0;letter-spacing:1px}header p{margin:5px 0;font-weight:bold}.back{display:inline-block;color:#ffda31;margin-bottom:15px;text-decoration:none;font-weight:bold}.intro{text-align:center;color:#dce4f1;margin:20px 0}.sides{display:grid;grid-template-columns:1fr 1fr;gap:14px}.side{border:2px solid #e5b91d;border-radius:14px;padding:15px;background:#192337;min-width:0}.side h2{font-size:21px;text-align:center;margin:0 0 12px;color:#ffdb37}.player-row{display:flex;align-items:center;gap:6px;margin-bottom:9px}.player-row input{width:100%;min-width:0;border:1px solid #8e9bb1;background:#f9fbff;color:#131a26;padding:12px 10px;border-radius:8px;font-size:15px}.player-row button{border:0;border-radius:8px;background:#a52130;color:white;padding:10px;cursor:pointer;font-size:18px}.player-row .num{color:#ffd93b;font-weight:bold;min-width:16px}.add{width:100%;padding:12px;border:2px dashed #f2cb27;border-radius:8px;background:#283a54;color:#fff;font-weight:bold;cursor:pointer}.add:disabled{opacity:.35;cursor:default}.total{margin-top:13px;background:#0d1625;border-radius:9px;padding:12px;display:flex;justify-content:space-between;font-size:20px;font-weight:bold}.total strong{color:#ffdc37}.result{margin-top:18px;padding:24px 15px;text-align:center;border:3px solid #ffdb2b;border-radius:16px;background:#172237}.result .difference{font-size:52px;font-weight:900;line-height:1.2}.result .grade{font-size:clamp(19px,3.8vw,29px);font-weight:900;margin:7px 0}.result p{color:#e6e9f0;margin:8px 0 0}.controls{text-align:center;margin:20px 0}.reset{background:#d20e2d;border:2px solid #ffd21a;border-radius:10px;color:#fff;font-weight:900;font-size:17px;padding:13px 28px;cursor:pointer}.foot{text-align:center;color:#aab5c9;font-size:12px;margin:24px 0}datalist{color:#111}@media(max-width:650px){.wrap{padding:10px}.sides{grid-template-columns:1fr}.side{padding:12px}.player-row input{font-size:16px}.result .difference{font-size:45px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="back" href="index.html">← Back to Brodstar Planetarium</a>
+<header><div class="star">★</div><h1>BRODSTAR STAR FINDER</h1><p>(Trade Value App)</p></header>
+<p class="intro">Select up to 5 players on each side. Type a name and click a matching suggestion. Scores are based on Brodstar's trade values.</p>
+<div class="sides">
+<section class="side"><h2>YOU RECEIVE</h2><div id="receive"></div><button class="add" id="addReceive" type="button">+ Add Player</button><div class="total"><span>Total Value</span><strong id="receiveTotal">0</strong></div></section>
+<section class="side"><h2>YOU GIVE</h2><div id="give"></div><button class="add" id="addGive" type="button">+ Add Player</button><div class="total"><span>Total Value</span><strong id="giveTotal">0</strong></div></section>
+</div>
+<datalist id="playerOptions"></datalist>
+<section class="result" id="result" aria-live="polite"><div class="difference" id="difference">0</div><div class="grade" id="grade">COMPLETELY BALANCED</div><p id="details">Add players to both sides to analyze your trade.</p></section>
+<div class="controls"><button class="reset" id="reset" type="button">RESET TRADE</button></div>
+<div class="foot">BRODSTAR PLANETARIUM • Trade values are opinion-based estimates, not guarantees.</div>
+</main>
+<script>
+const raw=`Jahmyr Gibbs|RB|75
+Jaxon Smith-Njigba|WR|72
+Kenneth Walker|RB|70
+Bijan Robinson|RB|68.25
+Ja'Marr Chase|WR|65
+Christian McCaffrey|RB|61.25
+James Cook|RB|48.75
+Jonathan Taylor|RB|47.5
+CeeDee Lamb|WR|46.25
+Amon-Ra St. Brown|WR|45
+Brock Bowers|TE|44.5
+Chuba Hubbard|RB|43.75
+Justin Jefferson|WR|42.5
+Kyren Williams|RB|40.75
+Tee Higgins|WR|39.25
+Malik Nabers|WR|38.75
+Josh Allen|QB|38.75
+Matthew Golden|WR|38.25
+Christian Watson|WR|37.5
+Javonte Williams|RB|36.25
+Bhayshul Tuten|RB|35.75
+Bucky Irving|RB|35.75
+Derrick Henry|RB|29
+Chris Olave|WR|26
+Joe Burrow|QB|25.5
+Trey McBride|TE|25
+Parker Washington|WR|24.5
+Jaylen Warren|RB|24
+Tetairoa McMillan|WR|23.75
+George Kittle|TE|23.5
+Luther Burden III|WR|23.25
+D'Andre Swift|RB|22.75
+Drake London|WR|22
+Jordan Love|QB|21.25
+Isaiah Likely|TE|21.25
+Breece Hall|RB|20.75
+Zay Flowers|WR|20.75
+Garrett Wilson|WR|20
+Drake Maye|QB|19.5
+Brock Purdy|QB|18.75
+Jared Goff|QB|18.75
+Caleb Williams|QB|18.25
+Jonah Coleman|RB|18.25
+George Pickens|WR|17.5
+Jameson Williams|WR|17.5
+Ollie Gordon II|RB|17.5
+D.J. Moore|WR|17
+Mike Evans|WR|17
+Chase Brown|RB|16.25
+Trevor Lawrence|QB|15.75
+Tony Pollard|RB|15
+Blake Corum|RB|13.75
+Nico Collins|WR|13.75
+C.J. Stroud|QB|13.25
+Ashton Jeanty|RB|12.5
+Puka Nacua|WR|12.5
+Saquon Barkley|RB|12
+Rome Odunze|WR|12
+Quinshon Judkins|RB|12
+Rashee Rice|WR|11.25
+Zach Charbonnet|RB|11.25
+Josh Jacobs|RB|11.25
+Rhamondre Stevenson|RB|10.75
+Tucker Kraft|TE|10.75
+Keenan Allen|WR|10.75
+DeVonta Smith|WR|10
+Colston Loveland|TE|10
+Carnell Tate|WR|9.75
+Emeka Egbuka|WR|8.75
+Cam Skattebo|RB|8.25
+A.J. Brown|WR|8.25
+Jalen Coker|WR|8.25
+Sam LaPorta|TE|7.75
+Dak Prescott|QB|7.5
+DK Metcalf|WR|7.5
+Stefon Diggs|WR|7.5
+Jordan Addison|WR|7.5
+Braelon Allen|RB|7.25
+KC Concepcion Jr.|WR|7.25
+Omar Cooper|WR|7
+Denzel Boston|WR|7
+Jadarian Price|RB|7
+Jaylen Waddle|WR|6.5
+Jayden Daniels|QB|6.5
+Jakobi Meyers|WR|6.5
+Travis Etienne|RB|6.25
+Jordan Mason|RB|6.25
+Davante Adams|WR|6.25
+Germie Bernard|WR|6.25
+Josh Downs|WR|6.25
+Aaron Jones|RB|6
+Tyler Warren|TE|5.75
+Woody Marks|RB|5.75
+Deebo Samuel|WR|5
+Kyle Monangai|RB|5
+Antonio Williams|WR|4.75
+Khalil Shakir|WR|4.75
+Rico Dowdle|RB|4.75
+Tyler Allgeier|RB|4.75
+Jordyn Tyson|WR|4.5
+Harold Fannin Jr.|TE|4.5
+Ladd McConkey|WR|4.5
+Makai Lemon|WR|4.5
+Patrick Mahomes|QB|4
+Tyler Shough|QB|4
+Tre Tucker|WR|4
+Matthew Stafford|QB|4
+Rachaad White|RB|3.75
+Kirk Cousins|QB|3.75
+Bryce Young|QB|3.75
+Omarion Hampton|RB|3.75`;
+const players=raw.split('\n').map(line=>{const [name,pos,value]=line.split('|');return{name,pos,value:Number(value),label:`${name} (${pos}) — ${value}`}});
+const byLabel=new Map(players.map(p=>[p.label.toLowerCase(),p]));
+const byName=new Map(players.map(p=>[p.name.toLowerCase(),p]));
+const options=document.getElementById('playerOptions');
+players.forEach(p=>{const option=document.createElement('option');option.value=p.label;options.appendChild(option)});
+const sides=['receive','give'];
+const format=n=>Number(n.toFixed(2)).toString();
+function chosen(input){const text=input.value.trim().toLowerCase();return byLabel.get(text)||byName.get(text)||null}
+function inputs(side){return [...document.querySelectorAll(`#${side} input`)]}
+function addPlayer(side){if(inputs(side).length>=5)return;const host=document.getElementById(side);const row=document.createElement('div');row.className='player-row';const num=document.createElement('span');num.className='num';const input=document.createElement('input');input.type='text';input.setAttribute('list','playerOptions');input.placeholder='Search player...';input.setAttribute('aria-label',side==='receive'?'Player you receive':'Player you give');input.autocomplete='off';input.addEventListener('input',update);input.addEventListener('change',update);const remove=document.createElement('button');remove.type='button';remove.textContent='×';remove.setAttribute('aria-label','Remove player');remove.addEventListener('click',()=>{row.remove();if(!inputs(side).length)addPlayer(side);update()});row.append(num,input,remove);host.appendChild(row);update();input.focus()}
+function update(){let totals={receive:0,give:0};let counts={receive:0,give:0};let duplicate=false;const used=new Set();for(const side of sides){inputs(side).forEach((input,i)=>{input.previousSibling.textContent=`${i+1}.`;const p=chosen(input);input.style.borderColor='';if(p){if(used.has(p.name)){duplicate=true;input.style.borderColor='#ff4b59'}else{used.add(p.name);totals[side]+=p.value;counts[side]++}}else if(input.value.trim()){input.style.borderColor='#ffb347'}});document.getElementById(side+'Total').textContent=format(totals[side]);document.getElementById(side==='receive'?'addReceive':'addGive').disabled=inputs(side).length>=5}
+const diff=Number((totals.receive-totals.give).toFixed(2));document.getElementById('difference').textContent=(diff>0?'+':'')+format(diff);
+let grade,color;if(diff>=15){grade='FLEECE!';color='#35e777'}else if(diff>=10){grade='STEAL!';color='#54e88b'}else if(diff>=5){grade='GOOD TRADE';color='#a9e94b'}else if(diff>0){grade='EQUAL TRADE — ADVANTAGE YOU';color='#f9d83a'}else if(diff===0){grade='COMPLETELY BALANCED';color='#ffffff'}else if(diff>-5){grade='EQUAL TRADE — ADVANTAGE THEM';color='#ffcb42'}else if(diff>=-10){grade='NOT UNLESS YOU ABSOLUTELY NEED TO';color='#ff9a42'}else if(diff>-15){grade='BAD TRADE';color='#ff665a'}else{grade="PLEASE DON'T DO THIS TRADE";color='#ff4252'}
+const result=document.getElementById('result');result.style.borderColor=color;document.getElementById('difference').style.color=color;const g=document.getElementById('grade');g.textContent=grade;g.style.color=color;
+let message;if(duplicate)message='A player can only appear once per trade. Remove duplicate selections.';else if(!counts.receive||!counts.give)message='Select at least one valid player on each side to compare.';else message=diff===0?'Both sides have exactly the same trade value.':diff>0?`You receive ${format(diff)} more value points than you give.`:`You give ${format(Math.abs(diff))} more value points than you receive.`;document.getElementById('details').textContent=message;
+}
+document.getElementById('addReceive').addEventListener('click',()=>addPlayer('receive'));document.getElementById('addGive').addEventListener('click',()=>addPlayer('give'));
+document.getElementById('reset').addEventListener('click',()=>{for(const side of sides){document.getElementById(side).replaceChildren();addPlayer(side)}update()});
+addPlayer('receive');addPlayer('give');
+</script>
+</body>
+</html>
