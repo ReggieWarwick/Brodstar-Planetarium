@@ -162,8 +162,25 @@ function displaySubmission(q) {
   if (!q || typeof q !== 'object') return;
   const name = String(q.username || q.viewer_name || 'Viewer').replace(/^@+/, '');
   document.getElementById('username').textContent = '@' + name;
-  document.getElementById('question').textContent = q.question || q.question_text || q.content || '';
-  const leagueSizeLabel = document.getElementById('leagueSize');
+const questionBox = document.getElementById('question');
+const questionText = q.question || q.question_text || q.content || '';
+const pickMatch = questionText.match(/\bPICK\s+\d+\b/i);
+
+questionBox.textContent = '';
+
+if (pickMatch) {
+  questionBox.append(document.createTextNode(questionText.slice(0, pickMatch.index)));
+
+  const yellowPick = document.createElement('span');
+  yellowPick.textContent = pickMatch[0];
+  yellowPick.style.color = '#FFD700';
+  yellowPick.style.fontWeight = '900';
+
+  questionBox.append(yellowPick);
+  questionBox.append(document.createTextNode(questionText.slice(pickMatch.index + pickMatch[0].length)));
+} else {
+  questionBox.textContent = questionText;
+}  const leagueSizeLabel = document.getElementById('leagueSize');
 leagueSizeLabel.textContent = [q.league_size ? `${q.league_size}-TEAM LEAGUE` : '', q.league_format || ''].filter(Boolean).join(' • ');  leagueSizeLabel.style.display = (q.league_size || q.league_format) ? 'block' : 'none';
   const oldResults = document.getElementById("startSitResults");
 if (oldResults) oldResults.remove();
