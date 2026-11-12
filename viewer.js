@@ -201,7 +201,11 @@ ttab.addEventListener("click", function () {
     return;
   }
 
-  payload.question = "START / SIT: " + players.join(" vs ");
+const pickCount = document.getElementById("startSitPickCount").value;
+
+payload.question =
+  "START / SIT — PICK " + pickCount + ":\n" +
+  players.join(" vs ");
 
 } else if (mode === "trade") {
  const giving = Array.from(
