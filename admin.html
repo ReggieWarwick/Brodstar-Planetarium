@@ -341,6 +341,13 @@ if (q.question_type === "Start/Sit") {
     checkbox.type = "checkbox";
     checkbox.value = player;
     checkbox.style.marginRight = "8px";
+   checkbox.addEventListener("change", () => {
+  label.style.color = checkbox.checked ? "#00ff66" : "#ffffff";
+  label.style.fontWeight = checkbox.checked ? "bold" : "normal";
+  label.style.background = checkbox.checked ? "#174d32" : "transparent";
+  label.style.padding = "6px";
+  label.style.borderRadius = "6px";
+});
 
     label.append(checkbox, document.createTextNode(player));
     startSitBox.append(label);
