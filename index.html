@@ -46,13 +46,14 @@
       </div>
 
       <div>
-        <label for="league">Scoring format</label>
-        <select id="league">
-          <option>PPR</option>
-          <option>Half PPR</option>
-          <option>Standard</option>
-          <option>Other</option>
-        </select>
+        <label for="league">Scoring Format *</label>
+<select id="league" required>
+  <option value="" selected disabled>-- Select Scoring Format --</option>
+  <option value="PPR">PPR</option>
+  <option value="Half PPR">0.5 PPR</option>
+  <option value="Standard">Standard</option>
+  <option value="Other">Other</option>
+</select>
       </div>
     </div>
 
