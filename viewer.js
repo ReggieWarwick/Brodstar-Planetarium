@@ -158,7 +158,10 @@ ttab.addEventListener("click", function () {
       showMessage("Enter your TikTok username.", true);
       return;
     }
-
+if (!league) {
+  showMessage("Please select a scoring format before submitting.", true);
+  return;
+}
     const payload = {
       username: username,
    question_type: mode === "roster"
