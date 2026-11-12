@@ -25,7 +25,7 @@ small{color:#b8c2da}
 <header>
 <small>FANTASY FOOTBALL • LIVE Q&A</small>
 <h1>BRODSTAR PLANETARIUM</h1>
-<p>Host Dashboard — Question Queue</p>
+<p>Host Dashboard —  Queue</p>
 </header>
 <main>
 <section class="card" id="setup">
@@ -125,6 +125,17 @@ async function loadQuestions(){
   heading.textContent=q.username||q.viewer_name||q.name||'Viewer';
   const body=document.createElement('p');
   body.textContent=q.question||q.question_text||q.content||'';
+  const pickMatch = (q.question || "").match(/START\s*\/\s*SIT\s*[—–-]\s*PICK\s*([123])/i);
+
+if (pickMatch) {
+  const pickLabel = document.createElement("div");
+  pickLabel.textContent = "PICK " + pickMatch[1] + " PLAYERS";
+  pickLabel.style.color = "#ffcc00";
+  pickLabel.style.fontSize = "22px";
+  pickLabel.style.fontWeight = "900";
+  pickLabel.style.marginBottom = "8px";
+  card.appendChild(pickLabel);
+}
   card.append(heading, body);
   const submittedTime = document.createElement('p');
 submittedTime.style.color = '#ffcc00';
