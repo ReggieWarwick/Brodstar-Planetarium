@@ -99,6 +99,7 @@ Rome Odunze|WR|11.5
 Tucker Kraft|TE|10.75
 DeVonta Smith|WR|10.75
 Quinshon Judkins|RB|10
+Emmett Johnson Jr.|RB|10
 Josh Downs|WR|10
 Travis Etienne|RB|10
 Rhamondre Stevenson|RB|8.5
@@ -126,6 +127,7 @@ Kyle Monangai|RB|6.5
 Kirk Cousins|QB|6.25
 Kyle Pitts|TE|6.25
 Emeka Egbuka|WR|6.25
+Dylan Sampson|RB|6
 Tyler Shough|QB|6
 Aaron Jones|RB|6
 Jordan Mason|RB|6
@@ -149,7 +151,6 @@ Drake Maye|QB|5
 Jack Bech|WR|5
 Kayson Boutte|WR|5
 Rico Dowdle|RB|5
-Dylan Sampson|RB|5
 Keon Coleman|WR|4.75
 Austin Ekeler|RB|4.75
 Courtland Sutton|WR|4.75
@@ -171,8 +172,7 @@ Marvin Harrison Jr.|WR|3.75
 Darren Waller|TE|3.75
 Bryce Young|QB|3.75
 Dalton Shultz|TE|3.5
-Chig Okonkwo|TE|3.5
-Wondale Robinson|WR|2`;
+Chig Okonkwo|TE|3.5`;
 const players = raw.split('\n').map(line => {
   const [name, pos, value] = line.split('|');
   return { name, pos, value: Number(value), label: `${name} (${pos})` };
